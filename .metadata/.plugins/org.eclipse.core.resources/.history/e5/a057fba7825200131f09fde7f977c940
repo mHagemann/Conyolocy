@@ -1,0 +1,11 @@
+import java.util.ArrayList;
+
+public class Apl {
+	
+	private static int[] heleGetallen;
+	private static ArrayList<Integer> gesorteerdeLijst;
+	
+	public static void main (String[] args) {
+		
+	}
+}
