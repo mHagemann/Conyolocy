@@ -12,9 +12,6 @@ public class Apl {
 		vulArray();
 	}
 	
-	/**
-	 * Methode voor het vullen van de array met willekeurige hele getallen.
-	 */
 	public static void vulArray() {
 		for (int i = 0; i < aantalGetallen; i++) {
 			
