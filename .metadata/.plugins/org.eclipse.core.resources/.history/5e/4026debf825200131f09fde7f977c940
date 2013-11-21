@@ -7,12 +7,9 @@ public class Apl {
 	private static int aantalGetallen = 0;
 	
 	public static void main (String[] args) {
+		
 		//random getal tussen 0 en N
 		int ti = randInt(0, 100);
-	}
-	
-	public void vulArray() {
-		
 	}
 	
 	/**
