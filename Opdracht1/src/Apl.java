@@ -3,27 +3,38 @@ import java.util.ArrayList;
 
 public class Apl {
 
+	private static int aantalGetallen = 100000;
 	private static int[] heleGetallen;
-	private static ArrayList<Integer> gesorteerdeLijst = new ArrayList<Integer>();
-	private static int aantalGetallen = 10000;
+	private static ArrayList<Integer> gesorteerdeLijst = new ArrayList<Integer>(aantalGetallen);
 	public static void main(String[] args) {
 
-		heleGetallen = new int[aantalGetallen];
-		vulArray();
+		for(int i = 0; i < 5; i++) {
+			
+			heleGetallen = new int[aantalGetallen];
+			gesorteerdeLijst = new ArrayList<Integer>(aantalGetallen);
+			
+			vulArray();
+			
+			for(int j = 0; j < aantalGetallen; j++) {
+				gesorteerdeLijst.add(0);
+			}
+			
+			// start de tuntime stopwatch
+			long startTime = System.currentTimeMillis();
 		
-		// start de tuntime stopwatch
-		long startTime = System.currentTimeMillis();
-		
-		opdracht1(heleGetallen);
+			opdracht1(heleGetallen);
 
-		// stop en print de runtime
-		long endTime = System.currentTimeMillis();
+			// stop en print de runtime
+			long endTime = System.currentTimeMillis();
+			System.out.println("\nSorting took " + (endTime - startTime) + " ms");
+
+		}
 		
+		
+//		System.out.println(gesorteerdeLijst.toString());
 //		for (int i = 0; i < heleGetallen.length; i++) {
 //			System.out.print(heleGetallen[i] + ", ");
 //		}
-		
-		System.out.println("\nSorting took " + (endTime - startTime) + " ms");
 	}
 
 	/**
@@ -56,12 +67,36 @@ public class Apl {
 		for (int i = 1; i < array.length; i++) {
 			int getal = array[i];
 			int x;
-			for (x = i - 1; x >= 0 && getal < array[x]; x--) {
-				array[x + 1] = array[x];
+			for (x = i; x > 0 && getal < array[x - 1]; x--) {
+				array[x] = array[x - 1];
+				gesorteerdeLijst.set(x, array[x-1]);
 			}
-			array[x + 1] = getal;
+			array[x] = getal;
+			gesorteerdeLijst.set(x, getal);
 		}
 	}
+	
+//	public void sort1(int[] a){
+//		
+//		for () {
+//			
+//		}
+//		
+//	}
+	
+//	public static void opdracht1(int[] a) {
+//		for (int i = 1; i < aantalGetallen; i++) {
+//			int j = i;
+//			int getal = a[i];
+//			while ((j > 0) && (a[j-1] > getal)) {
+//				gesorteerdeLijst.add(j, a[j-1]);
+//				j--;
+//			}
+//			
+//			//gesorteerdeLijst.add(j, getal);
+//			
+//		}
+//	}
 	
 	public static void opdracht2() {
 		
