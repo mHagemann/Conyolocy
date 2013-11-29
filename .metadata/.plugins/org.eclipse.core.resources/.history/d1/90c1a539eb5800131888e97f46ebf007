@@ -1,0 +1,159 @@
+public class Apl2 {
+
+	private static int N = 25000;
+	private static final int per_thread = 12500;
+	private static Integer[] sort = new Integer[N];
+	private static Thread[] thread;
+	private static int run = 0;
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// generate random int
+		int counter = 0;
+
+		while (counter < N) {
+			sort[counter] = randInt(0, N);
+			counter++;
+		}
+
+		int threads = (int) ((N / per_thread) + 0.49999);
+
+		System.out.println("Creating " + Math.round((N / per_thread) + 0.5)
+				+ " thread(s)\n");
+
+		thread = new Thread[threads];
+
+		final long start = System.currentTimeMillis();
+
+		for (int i = 0; i < threads; i++) {
+
+			thread[i] = new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					int irun = run++;
+					int start = (irun * per_thread) + 1;
+					int stop = ((irun + 1) * per_thread);
+
+					System.out.println("run " + irun);
+
+					// start insertion Sort
+					try {
+						insertionSort(sort, start);
+					} catch (NullPointerException e) {
+						e.printStackTrace();
+					}
+
+					System.out.println("Run " + irun + " completed");
+
+				}
+
+			});
+			thread[i].start();
+		}
+
+		try {
+			// wait for threads to finish
+			for (int i = 0; i < thread.length; i++)
+				thread[i].join();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		System.out.println("\nStart merging\n");
+
+		mergeSort(sort);
+
+		System.out.println("\nCompleted merging\n");
+
+		System.out.println("Total time: "
+				+ (System.currentTimeMillis() - start));
+		
+		for(int i = 0; i<sort.length; i++) {
+			System.out.print(sort[i] + ", ");
+		}
+
+	}
+
+	public static int randInt(int min, int max) {
+		return min + (int) (Math.random() * max);
+	}
+
+	public static <AnyType extends Comparable<? super AnyType>> void insertionSort(
+			AnyType[] a, int start) {
+
+		int max = (a.length < per_thread) ? a.length : per_thread;
+
+		int j;
+		for (int p = start; p < max; p++) {
+			AnyType tmp = a[p];
+			for (j = p; j > 0 && tmp.compareTo(a[j - 1]) < 0; j--)
+				a[j] = a[j - 1];
+
+			a[j] = tmp;
+		}
+	}
+
+	public static <AnyType extends Comparable<? super AnyType>> void mergeSort(
+			AnyType[] a) {
+
+		AnyType[] tmpArray = (AnyType[]) new Comparable[a.length];
+		mergeSort(a, tmpArray, 0, a.length - 1);
+	}
+
+	/**
+	 * Internal method that makes recursive calls.
+	 * 
+	 * @param a
+	 *            an array of Comparable items.
+	 * @param tmpArray
+	 *            an array to place the merged result.
+	 * @param left
+	 *            the left-most index of the subarray.
+	 * @param right
+	 *            the right-most index of the subarray.
+	 */
+	private static <AnyType extends Comparable<? super AnyType>> void mergeSort(
+			AnyType[] a, AnyType[] tmpArray,
+
+			int left, int right) {
+
+		if (left < right) {
+			int center = (left + right) / 2;
+			mergeSort(a, tmpArray, left, center);
+			mergeSort(a, tmpArray, center + 1, right);
+			merge(a, tmpArray, left, center + 1, right);
+		}
+	}
+
+	private static <AnyType extends Comparable<? super AnyType>> void merge(
+			AnyType[] a, AnyType[] tmpArray,
+
+			int leftPos, int rightPos, int rightEnd) {
+		int leftEnd = rightPos - 1;
+		int tmpPos = leftPos;
+		int numElements = rightEnd - leftPos + 1;
+
+		while (leftPos <= leftEnd && rightPos <= rightEnd)
+			// Main loop
+			if (a[leftPos].compareTo(a[rightPos]) <= 0)
+				tmpArray[tmpPos++] = a[leftPos++];
+			else
+				tmpArray[tmpPos++] = a[rightPos++];
+
+		while (leftPos <= leftEnd)
+			// Copy rest of first half
+			tmpArray[tmpPos++] = a[leftPos++];
+
+		while (rightPos <= rightEnd)
+			// Copy rest of right half
+			tmpArray[tmpPos++] = a[rightPos++];
+
+		for (int i = 0; i < numElements; i++, rightEnd--)
+			// Copy tmpArray back
+			a[rightEnd] = tmpArray[rightEnd];
+	}
+
+}
