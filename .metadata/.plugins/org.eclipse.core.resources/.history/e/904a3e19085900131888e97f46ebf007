@@ -9,25 +9,6 @@ public class Apl {
 			aantalGetallen);
 
 	public static void main(String[] args) {
-		
-		
-		ArrayList<Integer> list1 = new ArrayList<Integer>();
-		ArrayList<Integer> list2 = new ArrayList<Integer>();
-
-		list1.add(4);
-		list1.add(20);
-		list1.add(33);
-		
-		list2.add(5);
-		list2.add(47);
-		list2.add(48);
-		list2.add(49);
-		list2.add(50);
-		
-		System.out.println(merge(list1, list2).toString());
-		
-		
-		
 
 		// for (int i = 0; i < 5; i++) {
 		// heleGetallen = new int[aantalGetallen];
@@ -42,9 +23,9 @@ public class Apl {
 		// opdracht1(heleGetallen);
 		// }
 
-//		for (int i = 0; i < 5; i++) {
-//			opdracht2();
-//		}
+		for (int i = 0; i < 5; i++) {
+			opdracht2();
+		}
 	}
 
 	public static void opdracht1(int[] array) {
@@ -80,7 +61,7 @@ public class Apl {
 		ArrayList<Integer> list1 = new ArrayList<Integer>();
 		ArrayList<Integer> list2 = new ArrayList<Integer>();
 
-		for (int j = 0; j < n; j++) {
+		for (int j = 0; j < (n); j++) {
 			list1.add(0);
 			list2.add(0);
 		}
@@ -112,8 +93,6 @@ public class Apl {
 	
 	public static void opdracht3() {
 
-		
-		
 	}
 
 	/**
@@ -128,25 +107,20 @@ public class Apl {
 		int index1 = 0;
 		int index2 = 0;
 
-		while (index1 + 1 < list1.size() || index2 + 1 < list2.size()) {
-		
+		for (int i = 0; i < (list1.size() + list2.size()); i++) {
+
 			if (list1.get(index1) < list2.get(index2)) {
 				result.add(list1.get(index1));
 				if (index1 + 1 < list1.size()) {
-					System.out.println("1: " + index1);
 					index1++;
 				}
 			} else {
 				result.add(list2.get(index2));
 				if (index2 + 1 < list2.size()) {
-					System.out.println("2: " + index2);
 					index2++;
 				}
 			}
 		}
-		
-	//	System.out.println(index1 + "+" + index2);
-		
 		return result;
 
 	}
