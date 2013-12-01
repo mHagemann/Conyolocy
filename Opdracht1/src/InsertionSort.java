@@ -16,10 +16,10 @@ public class InsertionSort extends Thread {
 			int x;
 			for (x = i; x > 0 && getal < a[x - 1]; x--) {
 				a[x] = a[x - 1];
-				//gl.set(x, a[x - 1]);
+				gl.set(x, a[x - 1]);
 			}
 			a[x] = getal;
-			//gl.set(x, getal);
+			gl.set(x, getal);
 		}
 
 		return gl;
@@ -30,7 +30,7 @@ public class InsertionSort extends Thread {
 		sort();
 
 	}
-	
+	 	
 	public ArrayList<Integer> getSortedList() {
 		return gl;
 	}

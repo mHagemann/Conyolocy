@@ -132,8 +132,8 @@ public class Apl {
 		int N = 50000;									// aantal getallen.
 		int noThreads = 0;								// hoeveelheid threads.
 		Thread[] threads;								// De threads;
-		ArrayList<ArrayList<Integer>> subSortedLists;	// De gesorteerde sub array's.
-		ArrayList<Integer> sortedList;					// De gesorteerde lijst.
+		ArrayList<ArrayList<Integer>> subSortedLists = new ArrayList<ArrayList<Integer>>();		// De gesorteerde sub array's.
+		ArrayList<Integer> sortedList = new ArrayList<Integer>();								// De gesorteerde lijst.
 	
 		int[] unsorted = new int[N];					// array aanmaken van N groot
 		unsorted = vulArray(unsorted, N);				// array vullen met willekeurige getallen.
@@ -141,6 +141,16 @@ public class Apl {
 		// De array opdelen aan de hand van de threshold. De lijst wordt hier opgedeeld in stukjes kleiner dan de threshold
 		splitArray(unsorted, threshold);
 		System.out.println(subArrays.size());
+		
+		// De arrayLists aanmaken waar de sub array's in worden gesorteerd.
+		for (int i = 0; i < subArrays.size(); i++) {
+			int size = subArrays.get(i).length;
+			ArrayList<Integer> subSortedList = new ArrayList<Integer>();
+			for (int j = 0; j < size; j++) {
+				subSortedList.add(0);
+			}
+			subSortedLists.add(subSortedList);
+		}
 		
 		//Het aantal threads is de groote van de subArray's lijst. Dit zijn de hoeveelheid sub arrays.
 		noThreads = subArrays.size();
@@ -158,9 +168,10 @@ public class Apl {
 			//Verder niet vergeten dit commentaar (en al het andere nutteloze commentaar) weg te halen :P hahaha
 			//========================================================================================================================
 			
-			threads[i] = new InsertionSort(subArrays.get(i), gesorteerdeArrayList); // <--- de ArrayList waarin de ongesorteerde subarray gesorteerd wordt.
+			threads[i] = new InsertionSort(subArrays.get(i), subSortedLists.get(i)); // <--- de ArrayList waarin de ongesorteerde subarray gesorteerd wordt.
 			threads[i].start();
 		}
+		
 		
 		//Wachten op .join() van alle threads.
 		for(int i = 0; i < noThreads; i++) {
@@ -171,6 +182,9 @@ public class Apl {
 				e.printStackTrace();
 			}
 		}	
+		
+		System.out.println("Klaar met sorteren... nu nog de merge");
+		System.out.println(subSortedLists.get(0).toString());
 	}
 	
 	/**
