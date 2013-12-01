@@ -7,9 +7,6 @@ public class Apl {
 	private static int[] heleGetallen;
 	private static ArrayList<Integer> gesorteerdeLijst = new ArrayList<Integer>(
 			aantalGetallen);
-	
-	//De subArrays van de ongesorteerde array.
-	private static ArrayList<int[]> subArrays = new ArrayList<int[]>();
 
 	public static void main(String[] args) {
 		
@@ -53,10 +50,6 @@ public class Apl {
 //		}
 	}
 
-	/**
-	 * Opdracht 1.1 - De gehele lijst wordt in één thread gesorteerd middels insertion sort.
-	 * @param array
-	 */
 	public static void opdracht1(int[] array) {
 
 		long start = System.currentTimeMillis();
@@ -78,9 +71,6 @@ public class Apl {
 
 	}
 
-	/**
-	 * Opdracht 1.2 - hier wordt de lijst opgedeeld in twee stukken en vervolgens door twee threads gesorteerd.
-	 */
 	public static void opdracht2() {
 
 		int n = aantalGetallen / 2;
@@ -123,89 +113,26 @@ public class Apl {
 
 	}
 	
-	/**
-	 * Opdracht 1.3
-	 */
 	public static void opdracht3() {
 
-		int threshold = 1000;							// drempel waarde, maximum aantal getallen per thread.
-		int N = 50000;									// aantal getallen.
-		int noThreads = 0;								// hoeveelheid threads.
-		Thread[] threads;								// De threads;
-		ArrayList<ArrayList<Integer>> subSortedLists;	// De gesorteerde sub array's.
-		ArrayList<Integer> sortedList;					// De gesorteerde lijst.
-	
-		int[] unsorted = new int[N];					// array aanmaken van N groot
-		unsorted = vulArray(unsorted, N);				// array vullen met willekeurige getallen.
+		int threshold = 1000;				// drempel waarde, maximum aantal getallen per thread.
+		int N = 50000;						// aantal getallen.
+		int noThreads = 0;					// hoeveelheid threads.
 		
-		// De array opdelen aan de hand van de threshold. De lijst wordt hier opgedeeld in stukjes kleiner dan de threshold
-		splitArray(unsorted, threshold);
-		System.out.println(subArrays.size());
 		
-		//Het aantal threads is de groote van de subArray's lijst. Dit zijn de hoeveelheid sub arrays.
-		noThreads = subArrays.size();
+		int[] unsorted = new int[N];
+		unsorted = vulArray(unsorted, N);
 		
-		//Threads aanmaken en starten.
-		threads = new Thread[noThreads];
-		for(int i = 0; i < noThreads; i++) {
-			
-			//========================================================================================================================
-			//Het opsplitsen in kleinere array's en in meerdere threads werkt nu :D Alleen moet het sorteren nog goed gemaakt worden.
-			//de ArrayList waar hij in gesorteerd wordt "gesorteerdeArrayList" moet nog worden gemaakt.
-			//We moeten een manier vinden om al deze lijsten aan te maken, zodat we gelijk aantal ongesorteerde sublijstjes hebben
-			//als het aantal sub arraylists hebben waar ze in gesorteerd moeten worden.
-			//Vervolgens kunnen we deze lijstjes mergen met de merge methode en dan de tijden nog meten ;)
-			//Verder niet vergeten dit commentaar (en al het andere nutteloze commentaar) weg te halen :P hahaha
-			//========================================================================================================================
-			
-			threads[i] = new InsertionSort(subArrays.get(i), gesorteerdeArrayList); // <--- de ArrayList waarin de ongesorteerde subarray gesorteerd wordt.
-			threads[i].start();
+
+		int counter = 0;
+		while(N > threshold) {
+			N = N / 2;
+			counter++;
 		}
+		noThreads = (int) Math.pow(2, counter);
 		
-		//Wachten op .join() van alle threads.
-		for(int i = 0; i < noThreads; i++) {
-			try {
-				threads[i].join();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}	
-	}
-	
-	/**
-	 * Methode die de array opdeelt in kleinere stukjes. Als de array groter is dan de drempelwaarde, dan deelt de methode de array in tweeën.
-	 * Mochten de ontstaande subArray's nog steeds groter zijn dan de opgegeven drempelwaarde, zal de methode ook deze array's opdelen.
-	 * Dit gaat zo door tot er subArray's ontstaan met een grootte onder de drempelwaarde. Deze array's worden vervolgens in een ArrayList gestopt.
-	 * @param array - de array die opgedeeld moet worden.
-	 * @param threshold - de drempel waarde
-	 */
-	public static void splitArray(int[] array, int threshold) {
-		int[] subArray1 = null;
-		int[] subArray2 = null;
+		System.out.println(noThreads);
 		
-		if(array.length <= threshold){
-			return;
-		} else {
-			int midIndex = (int) Math.round(array.length/2);
-			subArray1 = new int[midIndex];
-			subArray2 = new int[array.length - midIndex];
-			for(int i = 0; i < midIndex; i++) {
-				subArray1[i] = array[i];
-			}
-			int j = 0;
-			for(int i = midIndex; i < array.length; i++) {
-				subArray2[j] = array[i];
-				j++;
-			}
-		}		
-		if(subArray2.length > threshold && subArray2.length > threshold) {
-			splitArray(subArray1, threshold);
-			splitArray(subArray2, threshold);
-		} else {
-			subArrays.add(subArray1);
-			subArrays.add(subArray2);
-		}
 	}
 
 	/**

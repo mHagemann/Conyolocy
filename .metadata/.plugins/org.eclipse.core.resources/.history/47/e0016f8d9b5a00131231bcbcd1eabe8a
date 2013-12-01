@@ -8,12 +8,16 @@ public class Apl {
 	private static ArrayList<Integer> gesorteerdeLijst = new ArrayList<Integer>(
 			aantalGetallen);
 	
-	//De subArrays van de ongesorteerde array.
 	private static ArrayList<int[]> subArrays = new ArrayList<int[]>();
 
 	public static void main(String[] args) {
 		
-		opdracht3();
+		//opdracht3();
+		
+		int[] array = new int[] {
+				10, 17, 88, 44, 71, 0, 11, 3, 6, 8, 9, 66, 22, 11, 2222
+		};
+		splitArray(array, 5);
 		
 //		//----TEST MERGE----
 //		ArrayList<Integer> list1 = new ArrayList<Integer>();
@@ -53,10 +57,6 @@ public class Apl {
 //		}
 	}
 
-	/**
-	 * Opdracht 1.1 - De gehele lijst wordt in één thread gesorteerd middels insertion sort.
-	 * @param array
-	 */
 	public static void opdracht1(int[] array) {
 
 		long start = System.currentTimeMillis();
@@ -78,9 +78,6 @@ public class Apl {
 
 	}
 
-	/**
-	 * Opdracht 1.2 - hier wordt de lijst opgedeeld in twee stukken en vervolgens door twee threads gesorteerd.
-	 */
 	public static void opdracht2() {
 
 		int n = aantalGetallen / 2;
@@ -123,9 +120,6 @@ public class Apl {
 
 	}
 	
-	/**
-	 * Opdracht 1.3
-	 */
 	public static void opdracht3() {
 
 		int threshold = 1000;							// drempel waarde, maximum aantal getallen per thread.
@@ -134,43 +128,36 @@ public class Apl {
 		Thread[] threads;								// De threads;
 		ArrayList<ArrayList<Integer>> subSortedLists;	// De gesorteerde sub array's.
 		ArrayList<Integer> sortedList;					// De gesorteerde lijst.
-	
+		
 		int[] unsorted = new int[N];					// array aanmaken van N groot
 		unsorted = vulArray(unsorted, N);				// array vullen met willekeurige getallen.
 		
-		// De array opdelen aan de hand van de threshold. De lijst wordt hier opgedeeld in stukjes kleiner dan de threshold
 		splitArray(unsorted, threshold);
-		System.out.println(subArrays.size());
 		
-		//Het aantal threads is de groote van de subArray's lijst. Dit zijn de hoeveelheid sub arrays.
-		noThreads = subArrays.size();
+//		
+//		//Hoeveelheid threads berekenen.
+//		int temp = N;
+//		int counter = 0;
+//		while(temp > threshold) {
+//			temp = temp / 2;
+//			counter++;
+//		}
+//		noThreads = (int) Math.pow(2, counter);
+//		
+//		System.out.println("Hoeveelheid threads: " + noThreads);
+//		
+//		//Threads aanmaken en starten.
+//		threads = new Thread[noThreads];
+//		for(int i = 0; i < noThreads; i++) {
+//			threads[i] = new InsertionSort(ongesorteerdeArray, gesorteerdeArrayList); //<-- nog manier vinden hoe we die lijsten maken/bepalen
+//			threads[i].start();
+//		}
+//		
+//		//Wachten op .join() van alle threads.
+//		for(int i = 0; i < noThreads; i++) {
+//			threads[i].join();
+//		}
 		
-		//Threads aanmaken en starten.
-		threads = new Thread[noThreads];
-		for(int i = 0; i < noThreads; i++) {
-			
-			//========================================================================================================================
-			//Het opsplitsen in kleinere array's en in meerdere threads werkt nu :D Alleen moet het sorteren nog goed gemaakt worden.
-			//de ArrayList waar hij in gesorteerd wordt "gesorteerdeArrayList" moet nog worden gemaakt.
-			//We moeten een manier vinden om al deze lijsten aan te maken, zodat we gelijk aantal ongesorteerde sublijstjes hebben
-			//als het aantal sub arraylists hebben waar ze in gesorteerd moeten worden.
-			//Vervolgens kunnen we deze lijstjes mergen met de merge methode en dan de tijden nog meten ;)
-			//Verder niet vergeten dit commentaar (en al het andere nutteloze commentaar) weg te halen :P hahaha
-			//========================================================================================================================
-			
-			threads[i] = new InsertionSort(subArrays.get(i), gesorteerdeArrayList); // <--- de ArrayList waarin de ongesorteerde subarray gesorteerd wordt.
-			threads[i].start();
-		}
-		
-		//Wachten op .join() van alle threads.
-		for(int i = 0; i < noThreads; i++) {
-			try {
-				threads[i].join();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}	
 	}
 	
 	/**
@@ -185,7 +172,7 @@ public class Apl {
 		int[] subArray2 = null;
 		
 		if(array.length <= threshold){
-			return;
+			System.out.println("");
 		} else {
 			int midIndex = (int) Math.round(array.length/2);
 			subArray1 = new int[midIndex];
@@ -198,7 +185,20 @@ public class Apl {
 				subArray2[j] = array[i];
 				j++;
 			}
-		}		
+		}
+		System.out.println("");
+		for(int i = 0; i < array.length; i++) {
+			System.out.print(array[i] + ", ");
+		}
+		System.out.println("");
+		for(int i = 0; i < subArray1.length; i++) {
+			System.out.print(subArray1[i] + ", ");
+		}
+		System.out.println("");
+		for(int i = 0; i < subArray2.length; i++) {
+			System.out.print(subArray2[i] + ", ");
+		}
+		
 		if(subArray2.length > threshold && subArray2.length > threshold) {
 			splitArray(subArray1, threshold);
 			splitArray(subArray2, threshold);

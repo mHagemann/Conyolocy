@@ -54,7 +54,7 @@ public class Apl {
 	}
 
 	/**
-	 * Opdracht 1.1 - De gehele lijst wordt in één thread gesorteerd middels insertion sort.
+	 * Opdracht 1.1 - De lijst wordt in de main thread gesorteerd middels insertion sort.
 	 * @param array
 	 */
 	public static void opdracht1(int[] array) {
@@ -79,7 +79,7 @@ public class Apl {
 	}
 
 	/**
-	 * Opdracht 1.2 - hier wordt de lijst opgedeeld in twee stukken en vervolgens door twee threads gesorteerd.
+	 * Opdracht 1.2 - hier wordt de lijst door 2 threads gesorteerd.
 	 */
 	public static void opdracht2() {
 
@@ -123,9 +123,6 @@ public class Apl {
 
 	}
 	
-	/**
-	 * Opdracht 1.3
-	 */
 	public static void opdracht3() {
 
 		int threshold = 1000;							// drempel waarde, maximum aantal getallen per thread.
