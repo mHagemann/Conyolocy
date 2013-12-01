@@ -17,12 +17,16 @@ public class Apl {
 		list1.add(4);
 		list1.add(20);
 		list1.add(33);
+		list1.add(55);
 		
 		list2.add(5);
 		list2.add(47);
 		list2.add(48);
 		list2.add(49);
 		list2.add(50);
+		list2.add(53);
+		list2.add(59);
+		
 		
 		System.out.println(merge(list1, list2).toString());
 		
@@ -128,24 +132,26 @@ public class Apl {
 		int index1 = 0;
 		int index2 = 0;
 
-		while (index1 + 1 < list1.size() || index2 + 1 < list2.size()) {
+		while (index1 < list1.size() && index2 < list2.size()) {
 		
 			if (list1.get(index1) < list2.get(index2)) {
 				result.add(list1.get(index1));
-				if (index1 + 1 < list1.size()) {
-					System.out.println("1: " + index1);
-					index1++;
-				}
+				index1++;
 			} else {
 				result.add(list2.get(index2));
-				if (index2 + 1 < list2.size()) {
-					System.out.println("2: " + index2);
-					index2++;
-				}
+				index2++;
 			}
 		}
 		
-	//	System.out.println(index1 + "+" + index2);
+		if (list1.size() <= index1) {
+			for (int i = index2; i < list2.size(); i++) {
+				result.add(list2.get(i));
+			}
+		} else if (list2.size() <= index2) {
+			for (int i = index1; i < list1.size(); i++) {
+				result.add(list1.get(i));
+			}
+		}
 		
 		return result;
 
