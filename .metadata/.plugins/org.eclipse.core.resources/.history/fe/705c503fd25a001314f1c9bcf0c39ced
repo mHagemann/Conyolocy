@@ -9,7 +9,7 @@ public class Apl {
 			aantalGetallen);
 	
 	//De subArrays van de ongesorteerde array.
-	private static ArrayList<int[]> subArrays;
+	private static ArrayList<int[]> subArrays = new ArrayList<int[]>();
 
 	public static void main(String[] args) {
 				
@@ -110,13 +110,12 @@ public class Apl {
 	 */
 	public static void opdracht3() {
 
-		int threshold = 10000;							// drempel waarde, maximum aantal getallen per thread.
-		int N = 800000;									// aantal getallen.
+		int threshold = 3000;							// drempel waarde, maximum aantal getallen per thread.
+		int N = 25000;									// aantal getallen.
 		int noThreads = 0;								// hoeveelheid threads.
 		Thread[] threads;								// De threads;
 		ArrayList<ArrayList<Integer>> subSortedLists = new ArrayList<ArrayList<Integer>>();		// De gesorteerde sub array's.
-		ArrayList<Integer> sortedList = new ArrayList<Integer>();	// De gesorteerde lijst.
-		subArrays = new ArrayList<int[]>();				// lijst van de ongesorteerde sub arrays
+		ArrayList<Integer> sortedList = new ArrayList<Integer>();								// De gesorteerde lijst.
 	
 		int[] unsorted = new int[N];					// array aanmaken van N groot
 		unsorted = vulArray(unsorted, N);				// array vullen met willekeurige getallen.

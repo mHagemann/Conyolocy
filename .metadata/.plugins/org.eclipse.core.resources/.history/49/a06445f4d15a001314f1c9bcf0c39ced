@@ -9,10 +9,32 @@ public class Apl {
 			aantalGetallen);
 	
 	//De subArrays van de ongesorteerde array.
-	private static ArrayList<int[]> subArrays;
+	private static ArrayList<int[]> subArrays = new ArrayList<int[]>();
 
 	public static void main(String[] args) {
-				
+		
+		opdracht3();
+		
+//		//----TEST MERGE----
+//		ArrayList<Integer> list1 = new ArrayList<Integer>();
+//		ArrayList<Integer> list2 = new ArrayList<Integer>();
+//
+//		list1.add(4);
+//		list1.add(20);
+//		list1.add(33);
+//		list1.add(55);
+//		
+//		list2.add(5);
+//		list2.add(47);
+//		list2.add(48);
+//		list2.add(49);
+//		list2.add(50);
+//		list2.add(53);
+//		list2.add(59);
+//		
+//		System.out.println(merge(list1, list2).toString());
+//		// ----EINDE TEST----
+		
 //		for (int i = 0; i < 5; i++) {
 //			heleGetallen = new int[aantalGetallen];
 //			gesorteerdeLijst = new ArrayList<Integer>(aantalGetallen);
@@ -29,10 +51,6 @@ public class Apl {
 //		for (int i = 0; i < 5; i++) {
 //			opdracht2();
 //		}
-		
-		for (int i = 0; i < 5; i++) {
-			opdracht3();
-		}
 	}
 
 	/**
@@ -110,13 +128,12 @@ public class Apl {
 	 */
 	public static void opdracht3() {
 
-		int threshold = 10000;							// drempel waarde, maximum aantal getallen per thread.
-		int N = 800000;									// aantal getallen.
+		int threshold = 500;							// drempel waarde, maximum aantal getallen per thread.
+		int N = 4000;									// aantal getallen.
 		int noThreads = 0;								// hoeveelheid threads.
 		Thread[] threads;								// De threads;
 		ArrayList<ArrayList<Integer>> subSortedLists = new ArrayList<ArrayList<Integer>>();		// De gesorteerde sub array's.
-		ArrayList<Integer> sortedList = new ArrayList<Integer>();	// De gesorteerde lijst.
-		subArrays = new ArrayList<int[]>();				// lijst van de ongesorteerde sub arrays
+		ArrayList<Integer> sortedList = new ArrayList<Integer>();								// De gesorteerde lijst.
 	
 		int[] unsorted = new int[N];					// array aanmaken van N groot
 		unsorted = vulArray(unsorted, N);				// array vullen met willekeurige getallen.
@@ -164,7 +181,7 @@ public class Apl {
 		}
 		
 		long eind = System.currentTimeMillis();
-		System.out.println("Sorteren Opdracht 3 duurde: " + (eind - start) + " ms");
+		System.out.println("Opdracht 3: " + (eind - start) + " ms");
 	}
 	
 	/**
