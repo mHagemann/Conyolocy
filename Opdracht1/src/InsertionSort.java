@@ -30,7 +30,7 @@ public class InsertionSort extends Thread {
 		sort();
 
 	}
-	
+	 	
 	public ArrayList<Integer> getSortedList() {
 		return gl;
 	}

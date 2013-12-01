@@ -134,6 +134,7 @@ public class Apl {
 		Thread[] threads;								// De threads;
 		ArrayList<ArrayList<Integer>> subSortedLists;	// De gesorteerde sub array's.
 		ArrayList<Integer> sortedList;					// De gesorteerde lijst.
+		ArrayList<Integer> gesorteerdeArrayList =new ArrayList<Integer>();
 	
 		int[] unsorted = new int[N];					// array aanmaken van N groot
 		unsorted = vulArray(unsorted, N);				// array vullen met willekeurige getallen.
@@ -162,6 +163,7 @@ public class Apl {
 			threads[i].start();
 		}
 		
+		
 		//Wachten op .join() van alle threads.
 		for(int i = 0; i < noThreads; i++) {
 			try {
@@ -171,6 +173,8 @@ public class Apl {
 				e.printStackTrace();
 			}
 		}	
+
+		System.out.println(gesorteerdeArrayList.toString());
 	}
 	
 	/**
