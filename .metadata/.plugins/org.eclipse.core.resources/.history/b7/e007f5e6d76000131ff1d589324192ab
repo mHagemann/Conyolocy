@@ -1,0 +1,10 @@
+
+public class SoftwareDeveloper {
+
+	private String name;
+	
+	public SoftwareDeveloper(String name) {
+		this.name = name;
+	}
+	
+}

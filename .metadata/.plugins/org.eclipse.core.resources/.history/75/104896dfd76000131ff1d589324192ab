@@ -1,0 +1,9 @@
+
+public class ProjectLeader {
+	
+	private String name;
+	
+	public ProjectLeader(String name) {
+		this.name = name;
+	}
+}
