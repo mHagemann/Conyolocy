@@ -3,4 +3,9 @@
 <fullyQualifiedTypeName name="java.lang.reflect.Array"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="InsertionSort"/>
+<fullyQualifiedTypeName name="ProjectLeader"/>
+<fullyQualifiedTypeName name="SoftwareProject"/>
+<fullyQualifiedTypeName name="java.util.concurrent.Semaphore"/>
+<fullyQualifiedTypeName name="SoftwareDeveloper"/>
+<fullyQualifiedTypeName name="java.lang.Thread"/>
 </qualifiedTypeNameHistroy>

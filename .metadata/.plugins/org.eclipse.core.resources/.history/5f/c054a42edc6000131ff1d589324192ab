@@ -1,0 +1,21 @@
+import java.util.concurrent.Semaphore;
+
+
+public class SoftwareProject {
+	
+	private static final int NR_OF_USERS = 5;
+	private static final int NR_OF_DEVELOPERS = 7;
+	private static final int NR_OF_LEADERS = 1;
+	
+	private Semaphore userMeeting, developersMeeting, leaderInvitation;
+	
+	private Thread[] users;
+	private Thread[] developers;
+	private ProjectLeader leader;
+	
+	public SoftwareProject() {
+		users = new Thread[NR_OF_USERS];
+		developers = new Thread[NR_OF_DEVELOPERS];
+	}
+
+}

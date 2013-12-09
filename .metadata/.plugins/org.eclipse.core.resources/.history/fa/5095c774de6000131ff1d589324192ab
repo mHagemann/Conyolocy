@@ -13,7 +13,6 @@ public class SoftwareProject {
 	private int usersAppliedForMeeting = 0;
 	
 	private Semaphore meeting, invitation, applyForMeeting, atWork;
-	private Semaphore mutex;
 	
 	private Thread[] users;
 	private Thread[] developers;

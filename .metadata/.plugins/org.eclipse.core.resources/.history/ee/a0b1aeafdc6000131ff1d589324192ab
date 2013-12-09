@@ -9,11 +9,9 @@ public class SoftwareProject {
 	
 	private static final int NR_OF_USERS = 5;
 	private static final int NR_OF_DEVELOPERS = 7;
-	private int developersAppliedForMeeting = 0;
-	private int usersAppliedForMeeting = 0;
+	private static final int NR_OF_LEADERS = 1;
 	
-	private Semaphore meeting, invitation, applyForMeeting, atWork;
-	private Semaphore mutex;
+	private Semaphore userMeeting, developersMeeting, leaderInvitation;
 	
 	private Thread[] users;
 	private Thread[] developers;
@@ -25,21 +23,18 @@ public class SoftwareProject {
 		
 		for(int i = 0; i < NR_OF_USERS; i++) {
 			users[i] = new User("user" + i);
-			users[i].start();
 		}
 		
 		for(int i = 0; i < NR_OF_DEVELOPERS; i++) {
 			developers[i] = new SoftwareDeveloper("developer" + i);
-			developers[i].start();
 		}
 		
 		leader = new ProjectLeader("Klaas");
-		leader.start();
 	}
 	
 	/**
 	 * Inner class voor de gebruiker
-	 * @author Hagemann & Janssen
+	 * @author Hagemann
 	 *
 	 */
 	class User extends Thread{
@@ -60,7 +55,7 @@ public class SoftwareProject {
 	
 	/**
 	 * Inner class voor de projectleider
-	 * @author Hagemann & Janssen
+	 * @author Hagemann
 	 *
 	 */
 	class ProjectLeader extends Thread {
@@ -92,7 +87,7 @@ public class SoftwareProject {
 	
 	/**
 	 * Innerclass voor de softwareDevelopers
-	 * @author Hagemann & Janssen
+	 * @author Hagemann
 	 *
 	 */
 	class SoftwareDeveloper extends Thread {

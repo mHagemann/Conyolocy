@@ -9,11 +9,9 @@ public class SoftwareProject {
 	
 	private static final int NR_OF_USERS = 5;
 	private static final int NR_OF_DEVELOPERS = 7;
-	private int developersAppliedForMeeting = 0;
-	private int usersAppliedForMeeting = 0;
+	private static final int NR_OF_LEADERS = 1;
 	
-	private Semaphore meeting, invitation, applyForMeeting, atWork;
-	private Semaphore mutex;
+	private Semaphore meeting, invitation, schedule;
 	
 	private Thread[] users;
 	private Thread[] developers;
