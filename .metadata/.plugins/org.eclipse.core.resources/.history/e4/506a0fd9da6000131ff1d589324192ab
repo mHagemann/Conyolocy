@@ -7,7 +7,7 @@ public class ProjectLeader extends Thread {
 		this.name = name;
 	}
 	
-	public void run() {
+	public void run(){
 		while (true) {			
 			meet();
 		}

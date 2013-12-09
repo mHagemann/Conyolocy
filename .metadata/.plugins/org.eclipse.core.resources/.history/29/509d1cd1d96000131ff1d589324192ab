@@ -7,9 +7,14 @@ public class User extends Thread{
 		this.name = name;
 	}
 
-	public void run() {
+	public void run(){
 		while (true) {			
-			//TODO
+			try {
+				//TODO
+				
+			} catch (InterruptedException e) {
+				Thread.currentThread().interrupt();
+			}
 		}
 	}
 	

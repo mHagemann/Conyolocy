@@ -7,9 +7,4 @@ public class SoftwareDeveloper extends Thread {
 		this.name = name;
 	}
 	
-	public void run() {
-		while (true) {			
-			//TODO
-		}
-	}
 }
