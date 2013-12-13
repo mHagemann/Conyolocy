@@ -23,10 +23,10 @@ public class SoftwareProject {
 		users = new Thread[NR_OF_USERS];
 		developers = new Thread[NR_OF_DEVELOPERS];
 		
-		meeting = new Semaphore(1, true); 
-		invitation = new Semaphore(0, true);
-		applyForDeveloperMeeting = new Semaphore(0, true);
-		applyForUserMeeting = new Semaphore(0, true);
+		meeting = new Semaphore(1); 
+		invitation = new Semaphore(0);
+		applyForDeveloperMeeting = new Semaphore(0);
+		applyForUserMeeting = new Semaphore(0);
 		mutex = new Semaphore(1);
 		
 		leader = new ProjectLeader("Klaas");

@@ -12,7 +12,7 @@ public class SoftwareProject {
 	private int developersAppliedForMeeting = 0;
 	private int usersAppliedForMeeting = 0;
 	
-	private Semaphore meeting, invitation, applyForUserMeeting, applyForDeveloperMeeting;
+	private Semaphore meeting, invitation, applyForMeeting;
 	private Semaphore mutex;
 	
 	private Thread[] users;
@@ -23,10 +23,9 @@ public class SoftwareProject {
 		users = new Thread[NR_OF_USERS];
 		developers = new Thread[NR_OF_DEVELOPERS];
 		
-		meeting = new Semaphore(1, true); 
-		invitation = new Semaphore(0, true);
-		applyForDeveloperMeeting = new Semaphore(0, true);
-		applyForUserMeeting = new Semaphore(0, true);
+		meeting = new Semaphore(1); 
+		invitation = new Semaphore(0);
+		applyForMeeting = new Semaphore(0);
 		mutex = new Semaphore(1);
 		
 		leader = new ProjectLeader("Klaas");
@@ -61,7 +60,7 @@ public class SoftwareProject {
 			while (true) {		
 				try {
 					justLive();
-					applyForUserMeeting.release();
+					applyForMeeting.release();
 					System.out.println(name + " has applied for a meeting.");
 									
 					mutex.acquire();
@@ -106,8 +105,8 @@ public class SoftwareProject {
 		public void run() {
 			while (true) {
 				try {
-					applyForDeveloperMeeting.acquire(3);;
-					invitation.release(3);
+					applyForMeeting.acquire();
+					invitation.release();
 					meeting.acquire();
 
 					developerMeeting();
@@ -118,7 +117,6 @@ public class SoftwareProject {
 				}
 				
 				meeting.release();
-				System.out.println("Projectleader is no longer in a meeting.");
 			}
 		}
 		
@@ -156,7 +154,7 @@ public class SoftwareProject {
 			while (true) {		
 				try {
 					work();
-					applyForDeveloperMeeting.release();
+					applyForMeeting.release();
 					System.out.println(name + " has applied for a meeting.");
 					
 					mutex.acquire();

@@ -5,7 +5,8 @@
 <fullyQualifiedTypeName name="InsertionSort"/>
 <fullyQualifiedTypeName name="ProjectLeader"/>
 <fullyQualifiedTypeName name="SoftwareProject"/>
-<fullyQualifiedTypeName name="java.util.concurrent.Semaphore"/>
 <fullyQualifiedTypeName name="SoftwareDeveloper"/>
 <fullyQualifiedTypeName name="java.lang.Thread"/>
+<fullyQualifiedTypeName name="java.lang.InterruptedException"/>
+<fullyQualifiedTypeName name="java.util.concurrent.Semaphore"/>
 </qualifiedTypeNameHistroy>
