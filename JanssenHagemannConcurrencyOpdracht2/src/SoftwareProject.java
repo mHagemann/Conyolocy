@@ -32,11 +32,11 @@ public class SoftwareProject {
 		leader = new ProjectLeader("Klaas");
 		leader.start();
 		
-		for(int i = 0; i < NR_OF_USERS; i++) {
-			users[i] = new User("user" + i);
-			users[i].start();
-		}
-		
+//		for(int i = 0; i < NR_OF_USERS; i++) {
+//			users[i] = new User("user" + i);
+//			users[i].start();
+//		}
+//		
 		for(int i = 0; i < NR_OF_DEVELOPERS; i++) {
 			developers[i] = new SoftwareDeveloper("developer" + i);
 			developers[i].start();
