@@ -39,7 +39,7 @@ public class SoftwareProject {
 //			users[i] = new User("user" + i);
 //			users[i].start();
 //		}
-
+		
 		for(int i = 0; i < NR_OF_DEVELOPERS; i++) {
 			developers[i] = new SoftwareDeveloper("developer" + i);
 			developers[i].start();
@@ -109,7 +109,7 @@ public class SoftwareProject {
 		public void run() {
 			while (true) {
 				try {
-					applyForDeveloperMeeting.acquire(3);
+					applyForDeveloperMeeting.acquire(3);;
 					invitation.release(3);
 					inMeetingRoom.acquire(3);
 					meeting.acquire();
