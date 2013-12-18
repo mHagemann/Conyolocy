@@ -109,7 +109,7 @@ public class SoftwareProject {
 		public void run() {
 			while (true) {
 				try {
-					applyForDeveloperMeeting.acquire(3);
+					applyForDeveloperMeeting.acquire(3);;
 					invitation.release(3);
 					inMeetingRoom.acquire(3);
 					meeting.acquire();
@@ -185,7 +185,7 @@ public class SoftwareProject {
 						mutex.release();
 						
 						inMeetingRoom.release(); //Zegt tegen projectleider dat hij in de vergader zaal zit.
-						System.out.println(name +" has arrived in the meeting room");
+						System.out.println(name +" has arrived in meeting room");
 						
 						backToWork.acquire(); //Krijgt opdracht om terug aan het werk te gaan.
 						work();

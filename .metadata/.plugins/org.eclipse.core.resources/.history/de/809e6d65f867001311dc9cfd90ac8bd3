@@ -109,7 +109,7 @@ public class SoftwareProject {
 		public void run() {
 			while (true) {
 				try {
-					applyForDeveloperMeeting.acquire(3);
+					applyForDeveloperMeeting.acquire(3);;
 					invitation.release(3);
 					inMeetingRoom.acquire(3);
 					meeting.acquire();
