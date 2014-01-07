@@ -1,0 +1,20 @@
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+
+
+public class HerdenkingsDienst {
+	
+	private	Lock lock;	
+	private	Condition condition;
+	
+	
+	
+	private class Burger {
+		private int id;
+		
+		public Burger(int id) {
+			this.id = id;
+		}
+	}
+	
+}

@@ -1,0 +1,16 @@
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+
+
+public class HerdenkingsDienst {
+	
+	private	Lock lock;	
+	private	Condition condition;
+	
+	private int aantalBurgers;
+	private int aantalHoogwaardigheidsBekleders;
+	private int aantalBewakers;
+	
+	
+	
+}

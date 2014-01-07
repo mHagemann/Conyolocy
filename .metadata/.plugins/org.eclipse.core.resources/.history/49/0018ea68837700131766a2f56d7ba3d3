@@ -1,0 +1,11 @@
+
+public class Hoogwaardigheidsbekleder {
+private int id;
+	
+	public Hoogwaardigheidsbekleder(int id) {
+		this.id = id;
+	}
+	public String toString() {
+		return "Hoogwaardigheidsbekleder" + id;
+	}
+}

@@ -13,7 +13,7 @@ public class SoftwareProject {
 	private int usersAppliedForMeeting = 0;
 	private boolean leaderInAMeeting = false;
 	
-	private Semaphore inMeetingRoom, backToWork, meeting, invitation, applyForUserMeeting, applyForDeveloperMeeting;
+	private Semaphore inMeetingRoom, backToWork, invitation, applyForUserMeeting, applyForDeveloperMeeting;
 	private Semaphore mutex;
 	
 	private Thread[] users;
@@ -24,7 +24,6 @@ public class SoftwareProject {
 		users = new Thread[NR_OF_USERS];
 		developers = new Thread[NR_OF_DEVELOPERS];
 		
-		meeting = new Semaphore(1, true); 
 		backToWork = new Semaphore(0);
 		invitation = new Semaphore(0, true);
 		applyForDeveloperMeeting = new Semaphore(0, true);
@@ -35,10 +34,10 @@ public class SoftwareProject {
 		leader = new ProjectLeader("Klaas");
 		leader.start();
 		
-//		for(int i = 0; i < NR_OF_USERS; i++) {
-//			users[i] = new User("user" + i);
-//			users[i].start();
-//		}
+		for(int i = 0; i < NR_OF_USERS; i++) {
+			users[i] = new User("user" + i);
+			users[i].start();
+		}
 		
 		for(int i = 0; i < NR_OF_DEVELOPERS; i++) {
 			developers[i] = new SoftwareDeveloper("developer" + i);
@@ -73,10 +72,9 @@ public class SoftwareProject {
 					
 					invitation.acquire();
 					System.out.println(name + " has acquired an invitation for a meeting.");
-					
-					mutex.acquire();
-					usersAppliedForMeeting--;
-					mutex.release();
+										
+					inMeetingRoom.release();
+					System.out.println(name +" has arrived in the meeting room");
 					
 				} catch(InterruptedException e){
 					Thread.currentThread().interrupt();
@@ -88,7 +86,7 @@ public class SoftwareProject {
 		private void justLive() {
 			try {
 				System.out.println(name + " is just living");
-				Thread.sleep((int)(Math.random() * 10000));
+				Thread.sleep((int)(Math.random() * 20000));
 			} catch (InterruptedException e) {}
 		}
 	}
@@ -109,42 +107,45 @@ public class SoftwareProject {
 		public void run() {
 			while (true) {
 				try {
-					applyForDeveloperMeeting.acquire(3);
-					invitation.release(3);
-					inMeetingRoom.acquire(3);
-					meeting.acquire();
 					
-					developerMeeting();
-	
+					// doe werk
+                	mutex.acquire();
+                	if(usersAppliedForMeeting>=1)
+                	{
+                		// wacht tot ontwikkelaar beschikbaar is
+                		
+                		if(developersAppliedForMeeting>=1)
+                		{
+                			invitation.release(usersAppliedForMeeting + developersAppliedForMeeting);
+                			inMeetingRoom.acquire(usersAppliedForMeeting + developersAppliedForMeeting);
+                			// start vergadering met klant
+                			System.out.println("\n>> Usermeeting\n");
+                        	// vergadering
+                        	Thread.sleep((long) (Math.random() * 5000));
+                        	System.out.println("\n>> End of usermeeting\n");
+                        	backToWork.release(developersAppliedForMeeting);
+                        	developersAppliedForMeeting=0;
+                        	usersAppliedForMeeting=0;
+                		}
+                	}
+                	else if(developersAppliedForMeeting>2)
+    				{
+                		invitation.release(developersAppliedForMeeting);
+            			inMeetingRoom.acquire(developersAppliedForMeeting);
+                    	System.out.println("\n>> Developermeeting with " + developersAppliedForMeeting + " developers\n");
+                    	// vergadering
+                    	Thread.sleep((long) (Math.random() * 5000));
+                    	System.out.println("\n>> End of developer meeting\n");
+                    	backToWork.release(developersAppliedForMeeting);
+                    	developersAppliedForMeeting=0;
+                    	
+    				}
+                    mutex.release();
+					
 				} catch(InterruptedException e){
 					Thread.currentThread().interrupt();
 				}
-				
-				meeting.release();
 			}
-		}
-		
-		//De developer meeting
-		private void developerMeeting() {
-			try {
-				leaderInAMeeting = true;
-				System.out.println("Projectleader is in a developer meeting");
-				Thread.sleep((int)(Math.random() * 1000));
-				leaderInAMeeting = false;
-				System.out.println("Projectleader is no longer in a meeting.");
-				System.out.println("Projectleader tells developers to go back to work");
-				backToWork.release(3);
-			} catch (InterruptedException e) {}
-		}
-		
-		//De user meeting
-		private void userMeeting() {
-			try {
-				leaderInAMeeting = true;
-				System.out.println("Projectleader is in a user meeting");
-				Thread.sleep((int)(Math.random() * 1000));
-				leaderInAMeeting = false;
-			} catch (InterruptedException e) {}
 		}
 	}
 	
@@ -179,11 +180,7 @@ public class SoftwareProject {
 						
 						invitation.acquire();	//Krijgt uitnodiging van leider voor een meeting
 						System.out.println(name + " has acquired an invitation for a meeting.");
-	
-						mutex.acquire();
-						developersAppliedForMeeting--;
-						mutex.release();
-						
+							
 						inMeetingRoom.release(); //Zegt tegen projectleider dat hij in de vergader zaal zit.
 						System.out.println(name +" has arrived in the meeting room");
 						
