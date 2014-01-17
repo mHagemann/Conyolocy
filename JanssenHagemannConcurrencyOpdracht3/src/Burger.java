@@ -1,9 +1,11 @@
 
 public class Burger extends Thread {
 	private int id;
+	private HerdenkingsDienst dienst;
 	
-	public Burger(int id) {
+	public Burger(int id, HerdenkingsDienst dienst) {
 		this.id = id;
+		this.dienst = dienst;
 	}
 	
 	public String toString() {
@@ -13,10 +15,16 @@ public class Burger extends Thread {
 	@Override
 	public void run() {
 		while (true) {
-			
-			justLive();
-			
-			
+			try {
+				justLive();
+				dienst.naarDienst(BezoekerType.BURGER);
+				respectBetuigen();
+				dienst.verlaatDienst(BezoekerType.BURGER);
+				
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -27,4 +35,14 @@ public class Burger extends Thread {
 			
 		}
 	}
+	
+	private void respectBetuigen() {
+		try {
+			Thread.sleep((int) (Math.random() * 2000));
+		} catch (InterruptedException e) {
+			
+		}
+	}
+	
+	
 }

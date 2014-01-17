@@ -1,0 +1,67 @@
+import java.util.ArrayList;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+
+public class HerdenkingsDienst {
+	
+	private final int MAX_AANTAL_BURGERS = 10;
+	
+	private	Lock lock;	
+	private	Condition geenBurgers, wachtendeBurgers, wachtendeBekleders, geenBekleders;	
+	private int aangemeldeBurgers = 0;
+	private int aangemeldeBekleders = 0;
+	
+	public HerdenkingsDienst() {
+		
+	 	lock = new ReentrantLock();
+	 	geenBurgers = lock.newCondition();
+	 	wachtendeBurgers = lock.newCondition();
+	 	wachtendeBekleders = lock.newCondition();
+	 	geenBekleders = lock.newCondition();
+	 			
+	}
+	
+	public void naarDienst(BezoekerType type) throws InterruptedException {
+		lock.lock();
+		try {
+			
+			switch (type) {
+				case BURGER:
+				
+					aangemeldeBurgers++;
+				
+					break;
+				case HOOGWAARDIGHEIDSBEKLEDER:
+				
+					break;
+				
+				case BEWAKER:
+				
+					break;
+
+				default:
+					break;
+			}
+			
+		} finally {
+			lock.unlock();
+		}
+		
+	}
+	
+	public void verlaatDienst(BezoekerType type) throws InterruptedException {
+		lock.lock();
+		try {
+			
+			
+			
+		} finally {
+			lock.unlock();
+		}
+		
+	}
+	
+	
+}

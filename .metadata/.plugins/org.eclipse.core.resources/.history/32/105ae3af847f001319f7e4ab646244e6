@@ -1,0 +1,22 @@
+
+public class Apl {
+	
+	private int aantalBurgers = 50;
+	private int aantalHoogwaardigheidsBekleders = 10;
+	private int aantalBewakers = 5;
+	
+	public static void main(String[] args) {
+		
+		HerdenkingsDienst hd = new HerdenkingsDienst();
+		
+		for(int i = 0; i < aantalBurgers; i++) {
+			new Burger(i).start();
+		}
+		for(int i = 0; i < aantalBewakers; i++) {
+			new Bewaker(i).start();
+		}
+		for(int i = 0; i < aantalHoogwaardigheidsBekleders; i++) {
+			new Hoogwaardigheidsbekleder(i).start();
+		}
+	}
+}

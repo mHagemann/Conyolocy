@@ -1,0 +1,19 @@
+
+public class Hoogwaardigheidsbekleder extends Thread {
+	private int id;
+	private HerdenkingsDienst dienst;
+	
+	public Hoogwaardigheidsbekleder(int id, HerdenkingsDienst dienst) {
+		this.id = id;
+		this.dienst = dienst;
+	}
+	
+	public String toString() {
+		return "Hoogwaardigheidsbekleder" + id;
+	}
+	
+	@Override
+	public void run() {
+		
+	}
+}
