@@ -1,0 +1,27 @@
+
+public class Burger extends Thread {
+	private int id;
+	
+	public Burger(int id) {
+		this.id = id;
+	}
+	
+	public String toString() {
+		return "Burger" + id;
+	}
+	
+	@Override
+	public void run() {
+		while (true) {
+			
+			
+			
+		}
+	}
+	
+	private void justLive() {
+		try {
+			Thread.sleep(5000);
+		}
+	}
+}

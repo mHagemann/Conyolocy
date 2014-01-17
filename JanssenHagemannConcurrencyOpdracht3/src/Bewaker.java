@@ -10,4 +10,9 @@ public class Bewaker extends Thread {
 		return "Bewaker" + id;
 	}
 
+	@Override
+	public void run() {
+		
+	}
+	
 }

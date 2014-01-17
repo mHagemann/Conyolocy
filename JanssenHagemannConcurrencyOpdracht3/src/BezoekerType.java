@@ -1,0 +1,3 @@
+public enum BezoekerType {
+	BURGER, HOOGWAARDIGHEIDSBEKLEDER, BEWAKER
+}

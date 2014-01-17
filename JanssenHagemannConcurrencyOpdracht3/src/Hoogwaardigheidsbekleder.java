@@ -9,4 +9,9 @@ public class Hoogwaardigheidsbekleder extends Thread {
 	public String toString() {
 		return "Hoogwaardigheidsbekleder" + id;
 	}
+	
+	@Override
+	public void run() {
+		
+	}
 }
