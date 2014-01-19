@@ -4,19 +4,21 @@
 		<item value="190" key="DIALOG_Y_ORIGIN"/>
 		<item value="381" key="DIALOG_X_ORIGIN"/>
 	</section>
+	<section name="WORKBENCH_SETTINGS">
+		<list key="ENABLED_TRANSFERS">
+		</list>
+	</section>
 	<section name="ExternalProjectImportWizard">
-		<item value="false" key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED"/>
+		<item value="true" key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED"/>
 		<item value="true" key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID"/>
-		<item value="false" key="WizardProjectsImportPage.STORE_NESTED_PROJECTS"/>
+		<item value="true" key="WizardProjectsImportPage.STORE_NESTED_PROJECTS"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value=""/>
 			<item value="C:\Users\Hagemann\Desktop"/>
 		</list>
 		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
+			<item value="C:\Users\Hagemann\Downloads\Opdracht 3\Opdracht 3\BakkerKurvinkOpdracht3\BakkerKurvinkOpdracht3.zip"/>
 			<item value=""/>
-		</list>
-	</section>
-	<section name="WORKBENCH_SETTINGS">
-		<list key="ENABLED_TRANSFERS">
 		</list>
 	</section>
 	<section name="NewWizardAction">

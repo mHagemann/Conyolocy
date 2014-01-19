@@ -6,12 +6,13 @@
 <fullyQualifiedTypeName name="SoftwareProject"/>
 <fullyQualifiedTypeName name="SoftwareDeveloper"/>
 <fullyQualifiedTypeName name="java.lang.Thread"/>
-<fullyQualifiedTypeName name="java.lang.InterruptedException"/>
 <fullyQualifiedTypeName name="java.util.concurrent.locks.Lock"/>
 <fullyQualifiedTypeName name="java.util.concurrent.locks.Condition"/>
-<fullyQualifiedTypeName name="HerdenkingsDienst"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="Hoogwaardigheidsbekleder"/>
 <fullyQualifiedTypeName name="java.util.concurrent.locks.ReentrantLock"/>
 <fullyQualifiedTypeName name="java.util.concurrent.Semaphore"/>
+<fullyQualifiedTypeName name="java.lang.InterruptedException"/>
+<fullyQualifiedTypeName name="HerdenkingsDienst"/>
+<fullyQualifiedTypeName name="BezoekerType"/>
+<fullyQualifiedTypeName name="Hoogwaardigheidsbekleder"/>
 </qualifiedTypeNameHistroy>

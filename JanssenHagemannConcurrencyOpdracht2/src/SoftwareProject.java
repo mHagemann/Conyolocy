@@ -7,13 +7,13 @@ import java.util.concurrent.Semaphore;
  */
 public class SoftwareProject {
 	
-	private static final int NR_OF_USERS = 5;
-	private static final int NR_OF_DEVELOPERS = 7;
+	private static final int NR_OF_USERS = 2;
+	private static final int NR_OF_DEVELOPERS = 3;
 	private int developersAppliedForMeeting = 0;
 	private int usersAppliedForMeeting = 0;
 	private boolean leaderInAMeeting = false;
 	
-	private Semaphore inMeetingRoom, backToWork, backToJustLiving, invitation, applyForUserMeeting, applyForDeveloperMeeting;
+	private Semaphore inMeetingRoom, backToWork, backToJustLiving, invitation, applyForUserMeeting, applyForDeveloperMeeting, projectleader;
 	private Semaphore mutex;
 	
 	private Thread[] users;
@@ -31,6 +31,7 @@ public class SoftwareProject {
 		applyForUserMeeting = new Semaphore(0, true);
 		mutex = new Semaphore(1);
 		inMeetingRoom = new Semaphore(0);
+		projectleader = new Semaphore(0);
 		
 		leader = new ProjectLeader("Klaas");
 		leader.start();
@@ -64,6 +65,10 @@ public class SoftwareProject {
 			while (true) {		
 				try {
 					justLive();
+					
+					//Projectleider wordt wakker gemaakt.
+					projectleader.release();
+					
 					applyForUserMeeting.release();
 					System.out.println(name + " has applied for a meeting.");
 									
@@ -110,6 +115,8 @@ public class SoftwareProject {
 		public void run() {
 			while (true) {
 				try {
+										
+					projectleader.acquire();	
 					
 					// doe werk
                 	mutex.acquire();
@@ -119,17 +126,23 @@ public class SoftwareProject {
                 		if(developersAppliedForMeeting>=1){
                 			leaderInAMeeting = true;
                 			
+                			/**
+                			 * Als er meer developers hebben aangemeld,
+                			 * zet de leider de overgebleven developers aan het werk.
+                			 */
+                			backToWork.release(developersAppliedForMeeting -1);
+                			
                 			//verstuurd uitnodiging en wacht tot iedereen er is.
                 			invitation.release(usersAppliedForMeeting + 1);
                 			inMeetingRoom.acquire(usersAppliedForMeeting + 1);
-
+                	
                 			// start vergadering met klant
                 			System.out.println("\n>> Usermeeting\n");
                         	// vergadering
                         	Thread.sleep((long) (Math.random() * 5000));
                         	System.out.println("\n>> End of usermeeting\n");
                         	
-                        	backToWork.release(developersAppliedForMeeting);
+                        	backToWork.release(1);//developersAppliedForMeeting);
                         	backToJustLiving.release(usersAppliedForMeeting);
                         	
                         	developersAppliedForMeeting=0;
@@ -179,6 +192,10 @@ public class SoftwareProject {
 			while (true) {		
 				try {
 					work();
+					
+					//Projectleider wordt wakkergemaakt.
+					projectleader.release();
+					
 					/**
 					 * Als de leider niet in een meeting zit zegt de developer pas dat hij beschikbaar is.
 					 * Als de leider al in een meeting zit, dan gaat hij weer aan het werk. 
@@ -194,15 +211,18 @@ public class SoftwareProject {
 						developersAppliedForMeeting++;
 						mutex.release();
 						
-						invitation.acquire();	//Krijgt uitnodiging van leider voor een meeting
-						System.out.println(name + " has acquired an invitation for a meeting.");
+						if(backToWork.tryAcquire()){
+							//Krijgt opdracht om terug aan het werk te gaan.
+						} else {
+							invitation.acquire();	//Krijgt uitnodiging van leider voor een meeting
+							System.out.println(name + " has acquired an invitation for a meeting.");
 							
-						System.out.println(name +" has arrived in the meeting room");
-						inMeetingRoom.release(); //Zegt tegen projectleider dat hij in de vergader zaal zit.
-						
-						backToWork.acquire(); //Krijgt opdracht om terug aan het werk te gaan.
-					}
-					
+							System.out.println(name +" has arrived in the meeting room");
+							inMeetingRoom.release(); //Zegt tegen projectleider dat hij in de vergader zaal zit.
+							
+							backToWork.acquire(); //Krijgt opdracht om terug aan het werk te gaan.
+						} 
+					}	
 				} catch(InterruptedException e) {
 					Thread.currentThread().interrupt();
 				}
